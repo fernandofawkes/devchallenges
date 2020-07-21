@@ -36,3 +36,25 @@ const addTodo = async (req: Request, res: Response): Promise<void> => {
     throw err
   };
 }
+
+const updateTodo = async(req: Request, res: Response): Promise<void> => {
+  try {
+    // object destructuring to get needded attributes
+    const {params: {id}, body } = req;
+
+    const updatedTodo = await Todo.findByIdAndUpdate({
+      _id: id
+    }, body);
+
+    // get updated todos array
+    const allTodos = await Todo.find();
+
+    res.status(200).json({
+      message: "todo sucessfully updated",
+      todo: updatedTodo,
+      todos: allTodos
+    })
+  }catch(err){
+    throw err
+  }
+}
