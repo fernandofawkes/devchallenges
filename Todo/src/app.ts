@@ -5,6 +5,7 @@ import todosRouter from './routes/todos';
 
 const app = express();
 app.use(cors());
+app.use(express.json()) // for parsing application/json
 app.use('/todos', todosRouter);
 
 const PORT = process.env.PORT || 4000;
