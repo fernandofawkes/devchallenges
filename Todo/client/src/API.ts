@@ -41,9 +41,9 @@ export const updateTodo = async (formData: ITodo): Promise<AxiosResponse<APIData
   }
 }
 
-export const deleteTodo = async (formData: ITodo): Promise<AxiosResponse<APIDataType>> => {
+export const deleteTodo = async (_id:string): Promise<AxiosResponse<APIDataType>> => {
   try {
-    const deletedTodo = await axios.delete<APIDataType>(baseUrl + '/todos/' + formData._id);
+    const deletedTodo = await axios.delete<APIDataType>(baseUrl + '/todos/' + _id);
     return deletedTodo;
   } catch (error) {
     throw new Error(error);

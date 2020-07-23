@@ -6,22 +6,20 @@ type Props = TodoProps & {
 }
 
 const Todo: React.FC<Props> = ({todo, updateTodo, deleteTodo}) => {
+  const [checkedState, setCheckedState] = useState(todo.status);
 
-  const [completed, setCompletion] = useState(todo.status);
-
-  useEffect(() => {
-    console.log('completion changed');
-
+  const handleCheckChange = () => {
+    const newState = !checkedState;
+    setCheckedState(newState);
     updateTodo({
       ...todo,
-      status: completed
-    });
-
-  }, [completed]);
-
+      status: newState
+    })
+  }
+  
   return (
     <li className="todo">
-      <input type="checkbox" checked={completed} onChange={() => setCompletion(!completed)} />
+      <input type="checkbox" checked={checkedState} onChange={handleCheckChange} />
       <div className="todo__text">
         <h1>{todo.name}</h1>
         <p>{todo.description}</p>
