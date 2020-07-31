@@ -1,11 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
+import React, { useState, useEffect, useCallback } from 'react';
 import AddTodo from './components/AddTodo';
 import Todo from './components/Todo';
 import { getTodos, deleteTodo, updateTodo, addTodo } from './API';
 
+import styled from 'styled-components';
+import FilterTodos, { TodoFilter } from './components/FilterTodos';
+const TodoFilterEnum = TodoFilter;
+const Heading = styled.h1`
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 42px;
+  text-align: center;
+  letter-spacing: -0.045em;
+  color: #333333;
+`;
+
+const MainContent = styled.main`
+  margin: auto;
+  width: 100%;
+  max-width: 480px; 
+`;
+
 const App: React.FC = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
+  const [filteredTodos, setFilteredTodos] = useState<ITodo[]>([]);
 
   // useEffect with no dependencies run on mount and dismisses on unmount 
   useEffect(() => {
@@ -45,18 +65,27 @@ const App: React.FC = () => {
         throw new Error("Error updating todo");
       }
       setTodos(data.todos);
-    })
+    });
   }
 
 
+  const filterTodos = useCallback((filteredValue: TodoFilter) => {
+    const filtered = todos.filter(todo => {
+      return filteredValue !== TodoFilterEnum.All ? todo.status === !!filteredValue : true
+    });
+    
+    setFilteredTodos(filtered);
+  }, [todos]);
 
   return (
-    <main className="App">
+    <MainContent>
+      <Heading>#todo</Heading>
       <AddTodo saveTodo={handleAdd}></AddTodo>
+      <FilterTodos todos={todos} filterTodos={filterTodos}></FilterTodos>
       {
-        todos.map(todo => <Todo key={todo._id} todo={todo} updateTodo={handleUpdate} deleteTodo={handleDelete}></Todo>)
+        filteredTodos.map(todo => <Todo key={todo._id} todo={todo} updateTodo={handleUpdate} deleteTodo={handleDelete}></Todo>)
       }
-    </main>
+    </MainContent>
   );
 }
 

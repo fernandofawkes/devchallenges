@@ -3,9 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+  }
+`;
+
 
 ReactDOM.render(
   <React.StrictMode>
+    <GlobalStyle></GlobalStyle>
     <App />
   </React.StrictMode>,
   document.getElementById('root')
