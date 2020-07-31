@@ -20,7 +20,7 @@ const Heading = styled.h1`
 const MainContent = styled.main`
   margin: auto;
   width: 100%;
-  max-width: 480px; 
+  max-width: 540px; 
 `;
 
 const App: React.FC = () => {
@@ -80,8 +80,8 @@ const App: React.FC = () => {
   return (
     <MainContent>
       <Heading>#todo</Heading>
-      <AddTodo saveTodo={handleAdd}></AddTodo>
       <FilterTodos todos={todos} filterTodos={filterTodos}></FilterTodos>
+      <AddTodo saveTodo={handleAdd}></AddTodo>
       {
         filteredTodos.map(todo => <Todo key={todo._id} todo={todo} updateTodo={handleUpdate} deleteTodo={handleDelete}></Todo>)
       }
