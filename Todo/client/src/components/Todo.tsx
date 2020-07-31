@@ -58,6 +58,10 @@ const CheckLabel = styled.label`
       stroke: var(--checked-state-check-color);
     }
   }
+  input[type="checkbox"]:checked ~ .todo__text {
+    text-decoration: line-through;
+    color: #BDBDBD;
+  }
 `;
 
 const DeleteButton = styled.button`
@@ -90,9 +94,9 @@ const Todo: React.FC<Props> = ({todo, updateTodo, deleteTodo}) => {
       <CheckLabel>
         <input type="checkbox" checked={checkedState} onChange={handleCheckChange} />
         <svg width="32" height="32" viewBox="-4 -4 39 39" aria-hidden="true" focusable="false">
-            <rect className="cb-bg" width="35" height="35" x="-2" y="-2" stroke="currentColor" fill="none" stroke-width="3"
+            <rect className="cb-bg" width="35" height="35" x="-2" y="-2" stroke="currentColor" fill="none" strokeWidth="3"
                 rx="6" ry="6"></rect>
-            <polyline className="cb-cm" points="4,14 12,23 28,5" stroke="transparent" stroke-width="4" fill="none"></polyline>
+            <polyline className="cb-cm" points="4,14 12,23 28,5" stroke="transparent" strokeWidth="4" fill="none"></polyline>
         </svg>
         <div className="todo__text">
           <h3>{todo.name}</h3>
